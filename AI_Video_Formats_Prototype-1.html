@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Video Formats</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6f8;color:#17212b;font-family:Arial,sans-serif}
+header{background:#123f3a;color:white;padding:24px 18px;border-radius:0 0 22px 22px}
+h1{margin:0 0 8px;font-size:24px}header p{margin:0;color:#d5e9e4}
+main{max-width:760px;margin:auto;padding:16px}
+.card{background:white;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 3px 14px #102b2612}
+button{border:0;border-radius:10px;padding:12px 15px;background:#176b5d;color:white;font-size:15px;margin:5px 3px;cursor:pointer}
+button.secondary{background:#e3eeeb;color:#174c43}
+textarea{width:100%;min-height:190px;border:1px solid #cbd7d4;border-radius:12px;padding:12px;font:15px/1.6 Arial;direction:ltr;text-align:left}
+small{color:#64736f}.pill{display:inline-block;background:#eaf3f0;color:#176b5d;padding:6px 10px;border-radius:20px;font-size:13px}
+</style>
+</head>
+<body>
+<header><h1>🎬 AI Video Formats</h1><p>د ویډیو پرامپټونه وګوره، بدل یې کړه او کاپي یې کړه.</p></header>
+<main>
+<div class="card">
+<strong>د فارمیټونو انتخاب</strong><p><small>یو قالب وټاکه؛ متن یې لاندې ښکاري او ته یې سمولای شې.</small></p>
+<div id="choices"></div>
+</div>
+<div class="card">
+<span class="pill">ستاسو د سمون وړ پرامپټ</span>
+<h3 id="chosen">د طبیعت سینمایي ویډیو</h3>
+<textarea id="prompt" spellcheck="false"></textarea>
+<button onclick="copyPrompt()">📋 پرامپټ کاپي کړه</button>
+<button class="secondary" onclick="restore()">اصلي متن بېرته راوړه</button>
+<p id="msg" aria-live="polite"><small>ته کولی شې متن پخپله هم بدل کړې.</small></p>
+</div>
+<div class="card"><strong>یادونه</strong><p>دا لومړنۍ نمونه ده. دا پرامپټونه کاپي کوي؛ ویډیو پخپله نه جوړوي او انټرنېټ ته اړتیا نه لري.</p></div>
+</main>
+<script>
+const items=[
+["🌿 طبیعت او ځنګل","Cinematic realistic video, 15 seconds, vertical 9:16. A peaceful green valley at sunrise, gentle camera movement, soft natural light, detailed scenery, calm atmosphere, no text, no watermark."],
+["🕌 د مکې منظر","Respectful cinematic travel scene inspired by the holy city of Makkah, wide architectural view, warm dawn light, slow smooth camera movement, peaceful atmosphere, vertical 9:16, 15 seconds, no invented religious text, no watermark."],
+["🌙 د مدینې فضا","Respectful cinematic view of Madinah at golden hour, elegant mosque architecture in the distance, soft sky, gentle slow camera pan, peaceful atmosphere, vertical 9:16, 15 seconds, no text, no watermark."],
+["✨ د باران شپه","Cinematic realistic night street after gentle rain, reflections of warm lights on the ground, slow camera glide, peaceful mood, detailed atmosphere, vertical 9:16, 15 seconds, no text, no watermark."]
+];
+let selected=0;
+const choices=document.getElementById("choices");
+items.forEach((item,i)=>{let b=document.createElement("button");b.className="secondary";b.textContent=item[0];b.onclick=()=>select(i);choices.appendChild(b)});
+function select(i){selected=i;document.getElementById("chosen").textContent=items[i][0];document.getElementById("prompt").value=items[i][1];document.getElementById("msg").innerHTML="<small>قالب بدل شو؛ اوس یې سمولای شې.</small>"}
+function restore(){select(selected)}
+async function copyPrompt(){let t=document.getElementById("prompt").value;try{await navigator.clipboard.writeText(t);document.getElementById("msg").textContent="کاپي شو؛ اوس یې د خپلې AI ویډیو وسیلې کې پیسټ کړه."}catch(e){document.getElementById("prompt").select();document.getElementById("msg").textContent="متن وټاکل شو؛ که کاپي نه شو، Copy وکاروه."}}
+select(0);
+</script>
+</body></html>
